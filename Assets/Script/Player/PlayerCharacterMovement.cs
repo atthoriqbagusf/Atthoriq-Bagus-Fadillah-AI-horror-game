@@ -21,6 +21,8 @@ public class PlayerCharacterMovement: MonoBehaviour
     private bool _isSprint;
     private float _currentSpeed = 1;
 
+    public bool IsSprint => _isSprint;
+
 
     public void SetMoveDirection(Vector2 inputDirection)
     {
