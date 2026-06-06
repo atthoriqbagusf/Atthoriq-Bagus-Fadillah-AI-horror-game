@@ -17,14 +17,7 @@ public class PlayerCharacterMovement: MonoBehaviour
 
     public void Move()
     {
-        if (_movementDirection.magnitude > 0.01)
-        {
-        _velocityXZ = _movementDirection * _currentSpeed;
-        }
-        else
-        {
-            _velocityXZ = Vector3.zero;
-        }
+        CalculateVelocityXZ();
         _characterController.Move(_velocityXZ * Time.deltaTime);
     }
 
@@ -32,5 +25,22 @@ public class PlayerCharacterMovement: MonoBehaviour
     private void Update()
     {
         Move();
+    }
+
+    private void CalculateVelocityXZ()
+    {
+        Transform cameraTransform = Camera.main.transform;
+        Vector3 xDirection = _movementDirection.x * cameraTransform.right;
+        Vector3 zDirection = _movementDirection.z * cameraTransform.forward;
+        Vector3 direction = xDirection + zDirection;
+        direction.y = 0;
+        if (_movementDirection.magnitude > 0.01)
+        {
+            _velocityXZ = direction.normalized * _currentSpeed;
+        }
+        else
+        {
+            _velocityXZ = Vector3.zero;
+        }
     }
 }

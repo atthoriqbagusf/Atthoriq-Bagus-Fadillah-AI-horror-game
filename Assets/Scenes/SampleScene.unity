@@ -691,6 +691,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86eb5620fc9727945859ec61f7f83999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  OnMoveInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1949122441}
+        m_TargetAssemblyTypeName: PlayerCharacterMovement, Assembly-CSharp
+        m_MethodName: SetMoveDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1618058488
 Transform:
   m_ObjectHideFlags: 0
@@ -716,6 +731,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1949122439}
   - component: {fileID: 1949122440}
+  - component: {fileID: 1949122441}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -764,6 +780,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1949122441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949122438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5625bb48fc3e77d4ca4b58ae467e85d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacterMovement
+  _currentSpeed: 1
+  _characterController: {fileID: 1949122440}
 --- !u!1 &2001346035
 GameObject:
   m_ObjectHideFlags: 0
