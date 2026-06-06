@@ -1,10 +1,15 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCharacterMovement: MonoBehaviour
 {
     [SerializeField]
-    private float _currentSpeed = 1;
+    private float _sprintSpeed = 2;
+    [SerializeField]
+    private float _acceleration = 0.5f;
+    [SerializeField]
+    private float _walkSpeed = 1;
     [SerializeField]
     private CharacterController _characterController;
     [SerializeField]
@@ -13,10 +18,18 @@ public class PlayerCharacterMovement: MonoBehaviour
     private Vector3 _velocityXZ;
     private float _velocityY;
     private bool _isGrounded;
+    private bool _isSprint;
+    private float _currentSpeed = 1;
+
 
     public void SetMoveDirection(Vector2 inputDirection)
     {
         _movementDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+    }
+
+    public void SetSprint(bool isSprint)
+    {
+        _isSprint = isSprint;
     }
 
     public void Move()
@@ -27,9 +40,15 @@ public class PlayerCharacterMovement: MonoBehaviour
         _characterController.Move(velocity * Time.deltaTime);
     }
 
+    void Awake()
+    {
+        _currentSpeed = _walkSpeed;
+    }
+
     private void Update()
     {
         CheckIsGrounded();
+        CalculateAcceleration();
         ResetVelocity();
         Move();
     }
@@ -38,6 +57,26 @@ public class PlayerCharacterMovement: MonoBehaviour
     {
         LayerMask groundLayer = LayerMask.GetMask("Ground");
         _isGrounded = Physics.CheckSphere(transform.position,0.5f, groundLayer);
+    }
+
+    private void CalculateAcceleration()
+    {
+        if (_movementDirection.magnitude > 0.01)
+        {
+            if (_isSprint)
+            {
+                _currentSpeed = _currentSpeed + _acceleration * Time.deltaTime;
+            }
+            else
+            {
+                _currentSpeed = _currentSpeed - _acceleration * Time.deltaTime;
+            }
+            _currentSpeed = Mathf.Clamp(_currentSpeed,_walkSpeed,_sprintSpeed);
+        }
+        else
+        {
+            _currentSpeed = 0;
+        }
     }
 
     private void CalculateVelocityXZ()
