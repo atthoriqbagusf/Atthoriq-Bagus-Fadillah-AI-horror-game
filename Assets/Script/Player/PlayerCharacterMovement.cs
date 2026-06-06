@@ -7,8 +7,12 @@ public class PlayerCharacterMovement: MonoBehaviour
     private float _currentSpeed = 1;
     [SerializeField]
     private CharacterController _characterController;
+    [SerializeField]
+    private float _gravityScale = 1;
     private Vector3 _movementDirection;
     private Vector3 _velocityXZ;
+    private float _velocityY;
+    private bool _isGrounded;
 
     public void SetMoveDirection(Vector2 inputDirection)
     {
@@ -18,13 +22,22 @@ public class PlayerCharacterMovement: MonoBehaviour
     public void Move()
     {
         CalculateVelocityXZ();
-        _characterController.Move(_velocityXZ * Time.deltaTime);
+        CalculateVelocityY();
+        Vector3 velocity = new Vector3(_velocityXZ.x,_velocityY,_velocityXZ.z);
+        _characterController.Move(velocity * Time.deltaTime);
     }
-
 
     private void Update()
     {
+        CheckIsGrounded();
+        ResetVelocity();
         Move();
+    }
+
+    private void CheckIsGrounded()
+    {
+        LayerMask groundLayer = LayerMask.GetMask("Ground");
+        _isGrounded = Physics.CheckSphere(transform.position,0.5f, groundLayer);
     }
 
     private void CalculateVelocityXZ()
@@ -41,6 +54,19 @@ public class PlayerCharacterMovement: MonoBehaviour
         else
         {
             _velocityXZ = Vector3.zero;
+        }
+    }
+
+    private void CalculateVelocityY()
+    {
+        _velocityY = _velocityY + Physics.gravity.y * _gravityScale * Time.deltaTime;
+    }
+
+    private void ResetVelocity()
+    {
+        if (_isGrounded == true && _velocityY < 0)
+        {
+            _velocityY = -2;
         }
     }
 }
