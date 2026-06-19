@@ -706,6 +706,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnSprintInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1949122441}
+        m_TargetAssemblyTypeName: PlayerCharacterMovement, Assembly-CSharp
+        m_MethodName: SetSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1618058488
 Transform:
   m_ObjectHideFlags: 0
@@ -731,6 +746,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1949122439}
   - component: {fileID: 1949122440}
+  - component: {fileID: 1949122442}
   - component: {fileID: 1949122441}
   m_Layer: 0
   m_Name: Player
@@ -792,8 +808,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5625bb48fc3e77d4ca4b58ae467e85d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacterMovement
-  _currentSpeed: 1
+  _sprintSpeed: 2
+  _acceleration: 0.5
+  _walkSpeed: 1
   _characterController: {fileID: 1949122440}
+  _gravityScale: 1
+--- !u!114 &1949122442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949122438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c246c49aa651a294184e7e3c7da23633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayercharacterStamina
+  _characterMovement: {fileID: 1949122441}
+  _maxStamina: 100
+  _sprintStaminaCost: 20
+  _staminaRegenValue: 20
 --- !u!1 &2001346035
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,7 +841,7 @@ GameObject:
   - component: {fileID: 2001346038}
   - component: {fileID: 2001346037}
   - component: {fileID: 2001346036}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
