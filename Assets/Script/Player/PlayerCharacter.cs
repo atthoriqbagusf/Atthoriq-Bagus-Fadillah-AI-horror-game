@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerCharacter : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class PlayerCharacter : MonoBehaviour
     public InputManager Input => _input; 
     public Flashlight Flashlight => _flashlight;
 
+    public UnityEvent OnDeath;
+
     public bool IsHiding {get; private set;}
 
     public void SetIsHiding(bool isHiding)
@@ -35,7 +38,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public void Death()
     {
-        Debug.Log("Lose");
+        OnDeath?.Invoke();
     }
 
     private void Awake()

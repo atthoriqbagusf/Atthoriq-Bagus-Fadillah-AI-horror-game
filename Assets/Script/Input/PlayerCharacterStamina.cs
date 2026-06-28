@@ -17,7 +17,7 @@ public class PlayerCharacterStamina : MonoBehaviour
     private Coroutine _stopRegenStaminaCorourine;
     private bool _isWaitingRegenStamina;
 
-    void Awake()
+    private void Start()
     {
         _currentStamina = _maxStamina;
         HUDManager.Instance.StaminaUI.SetStaminaFill(_currentStamina, _maxStamina);

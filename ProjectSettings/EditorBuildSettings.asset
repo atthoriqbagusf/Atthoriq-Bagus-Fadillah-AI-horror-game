@@ -6,8 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 582c4506f50af9f49b3c7e98a12561df
+  - enabled: 1
     path: Assets/Scenes/HauntedHouse-Testing.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/LoseScreen.unity
+    guid: 49ef8e6aee6d4534985ea9118562960b
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: 8e59464bc0d73ae4980bdccbb8e1e841
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

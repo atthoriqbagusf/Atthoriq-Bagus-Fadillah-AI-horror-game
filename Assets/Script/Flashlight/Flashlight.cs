@@ -16,8 +16,8 @@ public class Flashlight : MonoBehaviour
 
     public bool HasFlashlight => _owner.Inventory.CheckItem("Flashlight_001");
     public bool HasBattery => _batteryLevel > 0;
-    
-    void Awake()
+
+    private void Start()
     {
         _batteryLevel = _initialBatteryLevel;
         HUDManager.Instance.BatteryLevelUi.UpdateBatteryUI(_batteryLevel, _initialBatteryLevel);
