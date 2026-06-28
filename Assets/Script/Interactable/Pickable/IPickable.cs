@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IPickable
 {
-    public void PickUp();
+    public void PickUp(PlayerCharacter character);
 }

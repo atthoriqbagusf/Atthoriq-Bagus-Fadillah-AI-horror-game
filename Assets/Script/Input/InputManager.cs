@@ -9,12 +9,14 @@ public class InputManager : MonoBehaviour, IPlayerActions
     public UnityEvent<Vector2> OnMoveInput;
     public UnityEvent<bool> OnSprintInput;
     private GameInputAction _inputAction;
+    public UnityEvent OnFlashlightInput;
+    public UnityEvent OnInteractInput = new UnityEvent();
 
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            Debug.Log("Interact");
+            OnInteractInput?.Invoke();
         }
     }
 
@@ -35,11 +37,24 @@ public class InputManager : MonoBehaviour, IPlayerActions
         }
     }
 
+    private void OnDisable()
+    {
+        _inputAction?.Disable();
+    }
+
     void Awake()
     {
         _inputAction = new GameInputAction();
         _inputAction.Enable();
         _inputAction.Player.Enable();
         _inputAction.Player.SetCallbacks(this);
+    }
+
+    public void OnFlashlight(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnFlashlightInput?.Invoke();
+        }
     }
 }

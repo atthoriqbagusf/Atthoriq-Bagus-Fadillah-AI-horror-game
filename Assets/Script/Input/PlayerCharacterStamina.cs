@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayercharacterStamina : MonoBehaviour
+public class PlayerCharacterStamina : MonoBehaviour
 {
     [SerializeField]
     private PlayerCharacterMovement _characterMovement;

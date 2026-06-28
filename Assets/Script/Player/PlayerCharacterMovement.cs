@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -22,6 +23,12 @@ public class PlayerCharacterMovement: MonoBehaviour
     private float _currentSpeed = 1;
 
     public bool IsSprint => _isSprint;
+    public bool Enabled {get; private set; } = true;
+
+    public void SetEnabled(bool isEnabled)
+    {
+        Enabled = isEnabled;
+    }
 
 
     public void SetMoveDirection(Vector2 inputDirection)
@@ -36,10 +43,13 @@ public class PlayerCharacterMovement: MonoBehaviour
 
     public void Move()
     {
+        if (Enabled == true)
+        {
         CalculateVelocityXZ();
         CalculateVelocityY();
         Vector3 velocity = new Vector3(_velocityXZ.x,_velocityY,_velocityXZ.z);
-        _characterController.Move(velocity * Time.deltaTime);
+        _characterController.Move(velocity * Time.deltaTime); 
+        }
     }
 
     void Awake()

@@ -1,19 +1,25 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Item : MonoBehaviour, IInteractable, IPickable
 {
     [SerializeField]
-    private string _name;
+    private ItemData _data;
 
-    public string Name => _name;
+    public UnityEvent onItemPicked;
+    public string Name => _data.Name;
 
-    public void Interact()
+    [ContextMenu("Interact Item")]
+    public void Interact(PlayerCharacter character)
     {
-        // Implementation for item interaction
+        PickUp(character);
     }
 
-    public void PickUp()
+    public virtual void PickUp(PlayerCharacter character)
     {
-        // Implementation for picking up the item
+        ItemData newData = new ItemData(_data.ID, _data.Name);
+        character.Inventory.AddItems(newData);
+        onItemPicked?.Invoke();
+        Destroy(gameObject);
     }
 }
