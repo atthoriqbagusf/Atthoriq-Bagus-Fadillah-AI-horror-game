@@ -20,6 +20,7 @@ public class Flashlight : MonoBehaviour
     void Awake()
     {
         _batteryLevel = _initialBatteryLevel;
+        HUDManager.Instance.BatteryLevelUi.UpdateBatteryUI(_batteryLevel, _initialBatteryLevel);
     }
 
     public void UseFlashlight()
@@ -41,11 +42,15 @@ public class Flashlight : MonoBehaviour
     {
         _batteryLevel = _batteryLevel + batteryLevel;
         _batteryLevel = Mathf.Clamp(_batteryLevel, 0, _initialBatteryLevel);
+        HUDManager.Instance.BatteryLevelUi.UpdateBatteryUI(_batteryLevel, _initialBatteryLevel);
+
     }
 
     public void RefillBatteryLevel()
     {
         _batteryLevel = _initialBatteryLevel;
+        HUDManager.Instance.BatteryLevelUi.UpdateBatteryUI(_batteryLevel, _initialBatteryLevel);
+
     }
 
     void Update()
@@ -73,5 +78,6 @@ public class Flashlight : MonoBehaviour
                 _light.enabled = false;
             }
         }
+        HUDManager.Instance.BatteryLevelUi.UpdateBatteryUI(_batteryLevel, _initialBatteryLevel);
     }
 }
