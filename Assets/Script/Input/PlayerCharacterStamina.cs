@@ -20,6 +20,7 @@ public class PlayerCharacterStamina : MonoBehaviour
     void Awake()
     {
         _currentStamina = _maxStamina;
+        HUDManager.Instance.StaminaUI.SetStaminaFill(_currentStamina, _maxStamina);
     }
 
     void Update()
@@ -60,11 +61,13 @@ public class PlayerCharacterStamina : MonoBehaviour
             }
         }
         _currentStamina = Mathf.Clamp(_currentStamina,0,_maxStamina);
+        HUDManager.Instance.StaminaUI.SetStaminaFill(_currentStamina, _maxStamina);
     }
 
     private IEnumerator StopRegenStaminaWait()
     {
         yield return new WaitForSeconds(1f);
+        HUDManager.Instance.StaminaUI.SetVisible(false);
 
     }
 }
