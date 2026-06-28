@@ -47,14 +47,17 @@ public class InteractDetector : MonoBehaviour
                                                             );
             if (IsDetectingInteractable)
             {
-                IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();                if (interactable != null)
+                IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();                
+                if (interactable != null)
                 {
                     _detectorInteractable = interactable;
+                    HUDManager.Instance.InteractionInfoUI.SetNameText(_detectorInteractable.Name);
+                    HUDManager.Instance.InteractionInfoUI.SetVisible(true);
                 }
             }
             else
             {
-                _detectorInteractable = null;
+                HUDManager.Instance.InteractionInfoUI.SetVisible(false);
             }
         }
     }
@@ -66,6 +69,8 @@ public class InteractDetector : MonoBehaviour
             _detectorInteractable.Interact(_owner);
             _detectorInteractable = null;
             _isInteracting = true;
+            HUDManager.Instance.InteractionInfoUI.SetVisible(false);
+
         }
     }
 
