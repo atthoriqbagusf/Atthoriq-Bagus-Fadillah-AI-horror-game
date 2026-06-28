@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCharacterStamina : MonoBehaviour
@@ -12,6 +14,8 @@ public class PlayerCharacterStamina : MonoBehaviour
     private float _staminaRegenValue = 20;
 
     private float _currentStamina;
+    private Coroutine _stopRegenStaminaCorourine;
+    private bool _isWaitingRegenStamina;
 
     void Awake()
     {
@@ -27,6 +31,13 @@ public class PlayerCharacterStamina : MonoBehaviour
     {
         if (_characterMovement.IsSprint)
         {
+            if (_stopRegenStaminaCorourine != null)
+            {
+                StopCoroutine(_stopRegenStaminaCorourine);
+                _stopRegenStaminaCorourine = null;
+            }
+            _isWaitingRegenStamina = false;
+
             if (_currentStamina > 0)
             {
                 _currentStamina = _currentStamina - _sprintStaminaCost * Time.deltaTime;
@@ -38,8 +49,22 @@ public class PlayerCharacterStamina : MonoBehaviour
         }
         else
         {
-            _currentStamina = _currentStamina + _staminaRegenValue * Time.deltaTime;
+            if (_currentStamina < _maxStamina)
+            {
+                _currentStamina = _currentStamina + _staminaRegenValue * Time.deltaTime;
+            }
+            else if(_isWaitingRegenStamina == false)
+            {
+                _stopRegenStaminaCorourine = StartCoroutine(StopRegenStaminaWait());
+                _isWaitingRegenStamina = true;
+            }
         }
         _currentStamina = Mathf.Clamp(_currentStamina,0,_maxStamina);
+    }
+
+    private IEnumerator StopRegenStaminaWait()
+    {
+        yield return new WaitForSeconds(1f);
+
     }
 }

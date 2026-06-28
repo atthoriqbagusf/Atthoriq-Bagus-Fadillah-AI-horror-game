@@ -28,6 +28,10 @@ public class PlayerCharacterMovement: MonoBehaviour
     public void SetEnabled(bool isEnabled)
     {
         Enabled = isEnabled;
+        if (_isSprint == true)
+        {
+            
+        }
     }
 
 
