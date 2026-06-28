@@ -8,6 +8,8 @@ public class HUDManager : MonoBehaviour
     private BatteryLevelUi _batteryLevelUI;
     [SerializeField]
     private InteractionInfoUI _interactionInfoUI;
+    [SerializeField]
+    private CrosshairUI _crosshairUI;
 
     private static HUDManager _instance;
 
@@ -15,6 +17,7 @@ public class HUDManager : MonoBehaviour
     public StaminaUI StaminaUI => _staminaUI;
     public BatteryLevelUi BatteryLevelUi => _batteryLevelUI;
     public InteractionInfoUI InteractionInfoUI => _interactionInfoUI;
+    public CrosshairUI CrosshairUI => _crosshairUI;
 
     void Awake()
     {
