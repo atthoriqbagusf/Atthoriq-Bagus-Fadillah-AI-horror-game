@@ -20,6 +20,7 @@ public abstract class Door : MonoBehaviour, IInteractable
 
     public UnityEvent OnDoorOpen;
     public UnityEvent OnDoorClose;
+    public UnityEvent OnOpenLockedDoor;
 
     public string Name => _name;
     public bool IsAnimating => _isAnimating;
@@ -34,6 +35,10 @@ public abstract class Door : MonoBehaviour, IInteractable
             {
                 _isLocked = false;
                 Open();
+            }
+            else
+            {
+                OnOpenLockedDoor?.Invoke();
             }
         }
         else
